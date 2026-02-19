@@ -18,22 +18,34 @@
 //     });
 // }
 
-// app.listen(ENV.PORT,()=> console.log("Server is up and running"));
+// app.listen(ENV.PORT,()=> 
+//   console.log("Server is up and running"));
+
+
+
+
+
+
+
+
+
 import express from "express";
 import { ENV } from "./configs/env.js";
+import { connectDB } from "./configs/db.js";
+import { clerkMiddleware } from '@clerk/express'
 
 const app = express();
-
+app.use(clerkMiddleware())
 app.use(express.json());
 
 app.get("/api/health", (req, res) => {
   res.status(200).json({ message: "Success" });
 });
 
-// Remove all the static file serving — Vercel handles that
-// Only listen locally
+
 if (process.env.NODE_ENV !== "production") {
   app.listen(ENV.PORT, () => console.log("Server running on port", ENV.PORT));
+  connectDB();
 }
 
 export default app;

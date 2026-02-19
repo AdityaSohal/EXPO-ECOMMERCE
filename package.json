@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm install --prefix backend && npm install --prefix admin --include=dev && npm run build --prefix admin",
-    "start": "npm run start --prefix backend " 
+    "start": "npm run start --prefix backend "
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/AdityaSohal/EXPO-ECOMMERCE/issues"
   },
-  "homepage": "https://github.com/AdityaSohal/EXPO-ECOMMERCE#readme"
+  "homepage": "https://github.com/AdityaSohal/EXPO-ECOMMERCE#readme",
+  "dependencies": {
+    "@clerk/clerk-react": "^5.61.0",
+    "mongoose": "^9.2.1"
+  }
 }
