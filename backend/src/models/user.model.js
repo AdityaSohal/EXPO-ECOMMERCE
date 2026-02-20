@@ -1,69 +1,68 @@
 import mongoose from "mongoose";
 
-const addressScheama = new mongoose.Schema({
-    label:{
+// Address sub-schema
+const addressSchema = new mongoose.Schema({
+    label: {
         type: String,
         required: true,
     },
-    fullName:{
+    fullName: {
         type: String,
         required: true,
     },
-    streetAddress:{
+    streetAddress: {
         type: String,
         required: true,
     },
-    city:{
+    city: {
         type: String,
         required: true,
     },
-    state:{
+    state: {
         type: String,
         required: true,
     },
-    zipCode:{
+    zipCode: {
         type: String,
         required: true,
     },
-    phoneNumber:{
+    phoneNumber: {
         type: String,
         required: true,
     },
-    isDefault:{
+    isDefault: {
         type: Boolean,
         default: false,
     }
-
 });
 
-const useSchema = new mongoose.Schema({
-    email:{
+// User schema
+const userSchema = new mongoose.Schema({
+    email: {
         type: String,
         required: true,
         unique: true,
     },
-    name:{
+    name: {
         type: String,
         required: true,
     },
-    imageUrl:{
+    imageUrl: {
         type: String,
         default: "",
     },
-    clerkId:{
+    clerkId: {
         type: String,
         unique: true,
         required: true,
     },
-    addresses: [addressScheama],
+    addresses: [addressSchema],
     wishlist: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "product",
+            ref: "Product", 
         }
     ]
-},
-    {timestamps: true}
-);
+}, { timestamps: true });
 
-export const User = mongoose.model("User",useSchema);
+export const User = mongoose.model("User", userSchema);
