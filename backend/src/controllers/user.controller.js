@@ -150,8 +150,11 @@ export async function removeFromWishList(req, res) {
 
 export async function getWishList(req, res) {
     try {
-        const user = req.user;
-        res.status(200).json({wishList: user.wishList});
+        const user = await User.findById(req.user._id)
+            .populate("wishList"); 
+        res.status(200).json({
+            wishList: user.wishList,
+        });
     } catch (error) {
         console.error("Error in fetching wishlist:", error);
         res.status(500).json({ message: "Internal server error" });
