@@ -3,7 +3,7 @@ import { connectDB } from "./db.js";
 import { User } from "../models/user.model.js";
 import { ENV } from "./env.js";
 
-export const inngest = new Inngest({ id: "ecommerce-app", signinKey: ENV.INNGEST_SIGNIN_KEY });
+export const inngest = new Inngest({ id: "ecommerce-app", signinKey: ENV.INNGEST_SIGNING_KEY });
 
 const syncUser = inngest.createFunction(
     { id: "sync-user" },

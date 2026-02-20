@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const adressScheama = new mongoose.Schema({
+const addressScheama = new mongoose.Schema({
     label:{
         type: String,
         required: true,
@@ -55,7 +55,7 @@ const useSchema = new mongoose.Schema({
         unique: true,
         required: true,
     },
-    addresses: [adressScheama],
+    addresses: [addressScheama],
     wishlist: [
         {
             type: mongoose.Schema.Types.ObjectId,
