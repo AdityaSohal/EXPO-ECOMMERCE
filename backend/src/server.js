@@ -39,6 +39,7 @@ import { functions, inngest } from "./configs/inngest.js";
 const app = express();
 
 app.use(express.json());
+app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use(clerkMiddleware());
 
 
@@ -47,7 +48,6 @@ app.use(async (req, res, next) => {
     next();
 });
 
-app.use("/api/inngest", serve({ client: inngest, functions }));
 
 app.get("/api/health", (req, res) => {
     res.status(200).json({ message: "Success" });
