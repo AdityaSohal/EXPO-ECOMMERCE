@@ -5,7 +5,11 @@ import {productApi} from "../lib/api";
 import { getStockStatusBadge } from "../lib/utils";
 function ProductPage() {
   
-  return <div>hello world</div>
+  return (
+    
+    <div>hello world</div>
+
+  );
 
 }
 
