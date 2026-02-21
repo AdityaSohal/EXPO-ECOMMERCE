@@ -3,6 +3,7 @@ import { ENV } from "./configs/env.js";
 import { connectDB } from "./configs/db.js";
 import { clerkMiddleware } from '@clerk/express';
 import { serve } from "inngest/express";
+import cors from "cors";
 import { functions, inngest } from "./configs/inngest.js";
 import adminRoutes from "./routes/admin.routes.js";
 import userRoutes from "./routes/user.routes.js";
@@ -15,6 +16,7 @@ const app = express();
 
 app.use(express.json());
 app.use(clerkMiddleware());
+app.use(cors({origin:ENV.CLIENT_URL,Credential:true}));
 app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use("/api/admin",adminRoutes);
 app.use("/api/users",userRoutes);
