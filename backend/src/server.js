@@ -5,6 +5,7 @@ import { serve } from "inngest/express";
 import { functions, inngest } from "./configs/inngest.js";
 import adminRoutes from "./routes/admin.routes.js";
 import userRoutes from "./routes/user.routes.js";
+import orderRoutes from "./routes/order.routes.js";
 import express from "express";
 
 const app = express();
@@ -13,7 +14,8 @@ app.use(express.json());
 app.use(clerkMiddleware());
 app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use("/api/admin",adminRoutes);
-app.use("/api/user",userRoutes);
+app.use("/api/users",userRoutes);
+app.use("/api/orders",orderRoutes);
 app.use(async (req, res, next) => {
     await connectDB();
     next();
