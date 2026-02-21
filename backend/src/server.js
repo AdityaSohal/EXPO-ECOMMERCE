@@ -14,21 +14,18 @@ import cartRoutes from "./routes/cart.routes.js";
 
 const app = express();
 
+await connectDB();
+
 app.use(express.json());
 app.use(clerkMiddleware());
-app.use(cors({origin:ENV.CLIENT_URL,Credential:true}));
+app.use(cors({ origin: ENV.CLIENT_URL, credentials: true })); 
 app.use("/api/inngest", serve({ client: inngest, functions }));
-app.use("/api/admin",adminRoutes);
-app.use("/api/users",userRoutes);
-app.use("/api/orders",orderRoutes);
-app.use("/api/review",reviewRoutes);
-app.use("/api/product",productRoutes);
-app.use("/api/cart",cartRoutes);
-app.use(async (req, res, next) => {
-    await connectDB();
-    next();
-});
-
+app.use("/api/admin", adminRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/review", reviewRoutes);
+app.use("/api/product", productRoutes);
+app.use("/api/cart", cartRoutes);
 
 app.get("/api/health", (req, res) => {
     res.status(200).json({ message: "Success" });

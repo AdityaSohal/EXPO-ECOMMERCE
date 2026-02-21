@@ -24,7 +24,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    images: {
+    image: {                         
         type: [String],
         required: true,
         validate: [arr => arr.length > 0, 'At least one image is required'],
@@ -35,7 +35,7 @@ const productSchema = new mongoose.Schema({
         max: 5,
         default: 0,
     },
-    totalReviews: {
+    numReviews: {                    
         type: Number,
         default: 0,
     },

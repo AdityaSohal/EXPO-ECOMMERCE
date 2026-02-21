@@ -51,17 +51,6 @@ const orderItemSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    status: {
-        type: String,
-        enum: ["pending", "shipped", "delivered"],
-        default: "pending",
-    },
-    deliveredAt: {
-        type: Date,
-    },
-    shippedAt: {
-        type: Date,
-    }
 });
 
 const orderSchema = new mongoose.Schema({
@@ -87,6 +76,17 @@ const orderSchema = new mongoose.Schema({
         type: Number,
         required: true,
         min: 0,
+    },
+    status: {
+        type: String,
+        enum: ["pending", "shipped", "delivered"],
+        default: "pending",
+    },
+    shippedAt: {
+        type: Date,
+    },
+    deliveredAt: {
+        type: Date,
     },
 }, { timestamps: true });
 

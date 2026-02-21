@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-// Address sub-schema
 const addressSchema = new mongoose.Schema({
     label: {
         type: String,
@@ -36,7 +35,6 @@ const addressSchema = new mongoose.Schema({
     }
 });
 
-// User schema
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -57,10 +55,10 @@ const userSchema = new mongoose.Schema({
         required: true,
     },
     addresses: [addressSchema],
-    wishlist: [
+    wishList: [                      
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Product", 
+            ref: "Product",
         }
     ]
 }, { timestamps: true });
