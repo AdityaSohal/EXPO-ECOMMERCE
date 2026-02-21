@@ -5,7 +5,7 @@ const App = () => {
   return (
     <div>
       <header>
-        <h1>Homepage</h1>
+        <h1 className="text-red-500 text-3xl">Homepage</h1>
 
         <SignedOut>
           <SignInButton />
