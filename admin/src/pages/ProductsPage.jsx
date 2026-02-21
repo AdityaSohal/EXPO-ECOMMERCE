@@ -538,7 +538,7 @@ function ProductsPage() {
             return (
               <div
                 key={product._id}
-                className="card bg-base-100 shadow-xl"
+                className="card bg-base-100 shadow-md"
               >
                 <div className="card-body">
                   <div className="flex flex-col sm:flex-row sm:items-center gap-4">
@@ -592,27 +592,38 @@ function ProductsPage() {
                       </div>
                     </div>
 
-                    {/* ACTIONS */}
-                    <div className="card-actions self-start sm:self-center">
+                    {/* SAFER ACTIONS */}
+                    <div className="flex items-center gap-3 self-start sm:self-center">
+                      {/* EDIT */}
                       <button
-                        className="btn btn-square btn-ghost"
+                        className="btn btn-sm btn-outline btn-primary"
                         onClick={() => handleEdit(product)}
                       >
-                        <PencilIcon className="w-5 h-5" />
+                        <PencilIcon className="w-4 h-4 mr-1" />
+                        Edit
                       </button>
 
+                      {/* DELETE */}
                       <button
-                        className="btn btn-square btn-ghost text-error"
+                        className="btn btn-sm btn-ghost text-error hover:bg-error/10"
                         onClick={() => {
+                          const confirmDelete = window.confirm(
+                            "Are you sure you want to delete this product?"
+                          );
+                          if (!confirmDelete) return;
+
                           setDeletingId(product._id);
                           deleteProductMutation.mutate(product._id);
                         }}
                         disabled={deletingId === product._id}
                       >
                         {deletingId === product._id ? (
-                          <span className="loading loading-spinner"></span>
+                          <span className="loading loading-spinner loading-sm"></span>
                         ) : (
-                          <Trash2Icon className="w-5 h-5" />
+                          <>
+                            <Trash2Icon className="w-4 h-4 mr-1" />
+                            Delete
+                          </>
                         )}
                       </button>
                     </div>
@@ -642,40 +653,31 @@ function ProductsPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="form-control">
-                <label className="label">
-                  <span>Product Name</span>
-                </label>
-                <input
-                  type="text"
-                  className="input input-bordered"
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  required
-                />
-              </div>
+              <input
+                type="text"
+                placeholder="Product Name"
+                className="input input-bordered"
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
+                required
+              />
 
-              <div className="form-control">
-                <label className="label">
-                  <span>Category</span>
-                </label>
-                <select
-                  className="select select-bordered"
-                  value={formData.category}
-                  onChange={(e) =>
-                    setFormData({ ...formData, category: e.target.value })
-                  }
-                  required
-                >
-                  <option value="">Select category</option>
-                  <option value="Electronics">Electronics</option>
-                  <option value="Accessories">Accessories</option>
-                  <option value="Fashion">Fashion</option>
-                  <option value="Sports">Sports</option>
-                </select>
-              </div>
+              <select
+                className="select select-bordered"
+                value={formData.category}
+                onChange={(e) =>
+                  setFormData({ ...formData, category: e.target.value })
+                }
+                required
+              >
+                <option value="">Select category</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Sports">Sports</option>
+              </select>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -704,7 +706,7 @@ function ProductsPage() {
             </div>
 
             <textarea
-              className="textarea textarea-bordered h-24 w-full"
+              className="textarea textarea-bordered h-24"
               placeholder="Description"
               value={formData.description}
               onChange={(e) =>
@@ -716,28 +718,26 @@ function ProductsPage() {
               required
             />
 
-            <div>
-              <input
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={handleImageChange}
-                className="file-input file-input-bordered w-full"
-                required={!editingProduct}
-              />
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleImageChange}
+              className="file-input file-input-bordered w-full"
+              required={!editingProduct}
+            />
 
-              {imagePreviews.length > 0 && (
-                <div className="flex gap-2 mt-2 flex-wrap">
-                  {imagePreviews.map((preview, index) => (
-                    <div key={index} className="avatar">
-                      <div className="w-20 rounded-lg">
-                        <img src={preview} alt="Preview" />
-                      </div>
+            {imagePreviews.length > 0 && (
+              <div className="flex gap-2 mt-2 flex-wrap">
+                {imagePreviews.map((preview, index) => (
+                  <div key={index} className="avatar">
+                    <div className="w-20 rounded-lg">
+                      <img src={preview} alt="Preview" />
                     </div>
-                  ))}
-                </div>
-              )}
-            </div>
+                  </div>
+                ))}
+              </div>
+            )}
 
             <div className="modal-action">
               <button type="button" onClick={closeModal} className="btn">
