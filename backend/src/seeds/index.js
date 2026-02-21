@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { Product } from "../models/product.model.js";
-import { ENV } from "../config/env.js";
+import { ENV } from "../configs/env.js";
 
 const products = [
     {
