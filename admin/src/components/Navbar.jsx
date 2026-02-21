@@ -36,7 +36,8 @@ function Navbar() {
                 <h1 className="text-xl font-bold">{currentPage}</h1>
             </div>
             <div className="mr-5">
-                <UserButton afterSignOutUrl="/login" />
+                {/* FIX: replaced deprecated afterSignOutUrl with signOutOptions */}
+                <UserButton signOutOptions={{ redirectUrl: "/login" }} />
             </div>
         </div>
     );

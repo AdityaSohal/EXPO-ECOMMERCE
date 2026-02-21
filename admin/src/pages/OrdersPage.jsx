@@ -1,7 +1,5 @@
 import { orderApi } from "../lib/api";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-// FIX: removed unused `toFormData` import from axios
-// FIX: added missing `formatDate` import which caused a runtime crash
 import { formatDate } from "../lib/utils";
 
 function OrderPage() {
