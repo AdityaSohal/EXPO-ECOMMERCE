@@ -19,11 +19,12 @@ function ProductsPage() {
 
   const queryClient = useQueryClient();
 
-  // fetch some data
-  const { data: products = [] } = useQuery({
+  // FIX: destructure data object correctly, products is nested inside data
+  const { data } = useQuery({
     queryKey: ["products"],
     queryFn: productApi.getAll,
   });
+  const products = data?.products || [];
 
   // creating, update, deleting
   const createProductMutation = useMutation({
@@ -45,13 +46,11 @@ function ProductsPage() {
   const deleteProductMutation = useMutation({
     mutationFn: productApi.delete,
     onSuccess: () => {
-      closeModal();
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },
   });
 
   const closeModal = () => {
-    // reset the state
     setShowModal(false);
     setEditingProduct(null);
     setFormData({
@@ -132,7 +131,7 @@ function ProductsPage() {
 
       {/* PRODUCTS GRID */}
       <div className="grid grid-cols-1 gap-4">
-        {products?.map((product) => {
+        {products.map((product) => {
           const status = getStockStatusBadge(product.stock);
 
           return (
@@ -191,10 +190,16 @@ function ProductsPage() {
       </div>
 
       {/* ADD/EDIT PRODUCT MODAL */}
+      {/* FIX: use onChange={() => {}} to avoid React controlled input warning */}
+      <input
+        type="checkbox"
+        className="modal-toggle"
+        checked={showModal}
+        onChange={() => {}}
+        readOnly
+      />
 
-      <input type="checkbox" className="modal-toggle" checked={showModal} />
-
-      <div className="modal">
+      <div className={`modal ${showModal ? "modal-open" : ""}`}>
         <div className="modal-box max-w-2xl">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-bold text-2xl">
@@ -351,6 +356,8 @@ function ProductsPage() {
             </div>
           </form>
         </div>
+        {/* Click outside to close */}
+        <div className="modal-backdrop" onClick={closeModal} />
       </div>
     </div>
   );
