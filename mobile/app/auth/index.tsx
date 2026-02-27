@@ -3,7 +3,7 @@ import React from 'react'
 
 const AuthScreen = () => {
   return (
-    <View>
+    <View className='flex-1 justify-center items-centere'>
       <Text>AuthScreen</Text>
     </View>
   )
